@@ -100,31 +100,39 @@
     D7=$(expr "${C7[1]}" + "${C7[2]}" + "${C7[3]}" + "${C7[4]}")
     let E7=$(((100 * ($B7 - $D7 - ${A7[4]} + ${C7[4]})) / ($B7 - $D7)))
     fi
+
     #RETRIVE CORE ACTIVITY
+
+
+
+
+
+
+
 
 
 #SWITCHES -------------------LET START---------------------- SWITCHES
     #SMALL CLUSTER
     
-    if [[ $E0 -gt 50 ]] #C1 ON
+    if [[ $E0 -gt 60 ]] #C1 ON
     then
         echo 1 > /sys/devices/system/cpu/cpu1/online
 
     else
 
-        if [[ $E1 -lt 20 ]] #C1 OFF
+        if [[ $E1 -lt 30 ]] #C1 OFF
         then
             echo 0 > /sys/devices/system/cpu/cpu1/online
         fi
 
     fi
-    if [[ $E1 -gt 50 ]] #C1 ON
+    if [[ $E1 -gt 60 ]] #C1 ON
     then
         echo 1 > /sys/devices/system/cpu/cpu2/online
 
     else
 
-        if [[ $E2 -lt 20 ]] #C1 OFF
+        if [[ $E2 -lt 30 ]] #C1 OFF
         then
             echo 0 > /sys/devices/system/cpu/cpu2/online
         fi
@@ -149,7 +157,19 @@
     #SMALL CLUSTER
 
 
-    if [[ $E4 -gt 50 ]] #C1 ON
+
+
+
+
+
+
+
+
+
+    #BIG CLUSTER
+	
+	
+    if [[ $E4 -gt 70 ]] #C1 ON
     then
         echo 1 > /sys/devices/system/cpu/cpu5/online
 
@@ -185,16 +205,7 @@
         fi
 
     fi
-
-
-
-
-
-
-
-
-
-    #BIG CLUSTER
+	
     #BIG CLUSTER
 
     
@@ -202,5 +213,5 @@
 
 
 
-    sleep 0.4
+    sleep 0.8
  done
