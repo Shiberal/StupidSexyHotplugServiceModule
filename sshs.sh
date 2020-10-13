@@ -213,5 +213,5 @@
 
 
 
-    sleep 0.8
+    sleep 0.4
  done
