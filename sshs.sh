@@ -1,6 +1,27 @@
-#!/system/bin/sh
+MODDIR=${0%/*}
+MODID=stupidsexyhotplugservice
+MODPATH=/data/adb/modules/stupidsexyhotplugservice
+INFO=/data/adb/modules/.stupidsexyhotplugservice-files
+LIBDIR=/system
+
+C1U=( $(grep C1U $MODDIR/profile.sshs) )
+C1D=( $(grep C1D $MODDIR/profile.sshs) )
+C2U=( $(grep C2U $MODDIR/profile.sshs) )
+C2D=( $(grep C2D $MODDIR/profile.sshs) )
+C3U=( $(grep C3U $MODDIR/profile.sshs) )
+C3D=( $(grep C3D $MODDIR/profile.sshs) )
+C5U=( $(grep C5U $MODDIR/profile.sshs) )
+C5D=( $(grep C5D $MODDIR/profile.sshs) )
+C6U=( $(grep C6U $MODDIR/profile.sshs) )
+C6D=( $(grep C6D $MODDIR/profile.sshs) )
+C7U=( $(grep C7U $MODDIR/profile.sshs) )
+C7D=( $(grep C7D $MODDIR/profile.sshs) )
+
+ 
+ 
  while :
  do
+	chmod -R 777 /sys/devices/system/cpu/
     #RETRIVE CORE ACTIVITY
     CA1=$(cat /sys/devices/system/cpu/cpu1/online)
     CA2=$(cat /sys/devices/system/cpu/cpu2/online)
@@ -8,7 +29,6 @@
     CA5=$(cat /sys/devices/system/cpu/cpu5/online)
     CA6=$(cat /sys/devices/system/cpu/cpu6/online)
     CA7=$(cat /sys/devices/system/cpu/cpu7/online)
-    
     A0=( $(grep cpu0 /proc/stat) ) #L0
     A1=( $(grep cpu1 /proc/stat) ) #L1
     A2=( $(grep cpu2 /proc/stat) ) #L2
@@ -17,7 +37,6 @@
     A5=( $(grep cpu5 /proc/stat) ) #B1
     A6=( $(grep cpu6 /proc/stat) ) #B2
     A7=( $(grep cpu7 /proc/stat) ) #B3
-
     #BORING MATH INCOMING
     #LITTLE
     B0=$(expr "${A0[1]}" + "${A0[2]}" + "${A0[3]}" + "${A0[4]}")  # NO NEED TO CHECK CORE 0 ACTIVATION
@@ -33,7 +52,6 @@
     then
     B3=$(expr "${A3[1]}" + "${A3[2]}" + "${A3[3]}" + "${A3[4]}")
     fi
-    
     #BIG
     B4=$(expr "${A4[1]}" + "${A4[2]}" + "${A4[3]}" + "${A4[4]}")  #NO NEED TO CHECK CORE 4 ACTIVATION
     if (("$CA5" > "0"))
@@ -48,11 +66,7 @@
     then
     B7=$(expr "${A7[1]}" + "${A7[2]}" + "${A7[3]}" + "${A7[4]}")
     fi
-  
-
      sleep 0.2
-
-
     C0=( $(grep cpu0 /proc/stat) ) #L0
     C1=( $(grep cpu1 /proc/stat) ) #L1
     C2=( $(grep cpu2 /proc/stat) ) #L2
@@ -61,21 +75,17 @@
     C5=( $(grep cpu5 /proc/stat) ) #B1
     C6=( $(grep cpu6 /proc/stat) ) #B2
     C7=( $(grep cpu7 /proc/stat) ) #B3
-
-
     D0=$(expr "${C0[1]}" + "${C0[2]}" + "${C0[3]}" + "${C0[4]}")
     let E0=$(((100 * ($B0 - $D0 - ${A0[4]} + ${C0[4]})) / ($B0 - $D0)))  # NO NEED TO CHECK CORE 0 ACTIVATION
     if (("$CA1" > "0"))
     then
         D1=$(expr "${C1[1]}" + "${C1[2]}" + "${C1[3]}" + "${C1[4]}")
         let E1=$(((100 * ($B1 - $D1 - ${A1[4]} + ${C1[4]})) / ($B1 - $D1)))
-
     fi
     if (("$CA2" > "0"))
     then
         D2=$(expr "${C2[1]}" + "${C2[2]}" + "${C2[3]}" + "${C2[4]}")
         let E2=$(((100 * ($B2 - $D2 - ${A2[4]} + ${C2[4]})) / ($B2 - $D2)))
-
     fi
     if (("$CA3" > "0"))
     then
@@ -100,118 +110,70 @@
     D7=$(expr "${C7[1]}" + "${C7[2]}" + "${C7[3]}" + "${C7[4]}")
     let E7=$(((100 * ($B7 - $D7 - ${A7[4]} + ${C7[4]})) / ($B7 - $D7)))
     fi
-
     #RETRIVE CORE ACTIVITY
-
-
-
-
-
-
-
-
-
-#SWITCHES -------------------LET START---------------------- SWITCHES
     #SMALL CLUSTER
-    
-    if [[ $E0 -gt 60 ]] #C1 ON
+    if [[ $E0 -gt ${C1U[1]} ]] #C1 ON
     then
         echo 1 > /sys/devices/system/cpu/cpu1/online
-
     else
-
-        if [[ $E1 -lt 30 ]] #C1 OFF
+        if [[ $E1 -lt ${C1D[1]} ]] #C1 OFF
         then
             echo 0 > /sys/devices/system/cpu/cpu1/online
         fi
-
     fi
-    if [[ $E1 -gt 60 ]] #C1 ON
+    if [[ $E1 -gt ${C2U[1]} ]] #C1 ON
     then
         echo 1 > /sys/devices/system/cpu/cpu2/online
-
     else
-
-        if [[ $E2 -lt 30 ]] #C1 OFF
+        if [[ $E2 -lt ${C2D[1]} ]] #C1 OFF
         then
             echo 0 > /sys/devices/system/cpu/cpu2/online
         fi
-
     fi
-    if [[ $E2 -gt 50 ]] #C1 ON
+    if [[ $E2 -gt ${C3U[1]} ]] #C1 ON
     then
         echo 1 > /sys/devices/system/cpu/cpu3/online
-
     else
-
-        if [[ $E3 -lt 20 ]] #C1 OFF
+        if [[ $E3 -lt ${C3D[1]} ]] #C1 OFF
         then
             echo 0 > /sys/devices/system/cpu/cpu3/online
         fi
-
     fi
-
-
-
-    
     #SMALL CLUSTER
-
-
-
-
-
-
-
-
-
-
-
     #BIG CLUSTER
 	
 	
-    if [[ $E4 -gt 70 ]] #C1 ON
+    if [[ $E4 -gt ${C5U[1]} ]] #C1 ON
     then
         echo 1 > /sys/devices/system/cpu/cpu5/online
-
     else
-
-        if [[ $E5 -lt 20 ]] #C1 OFF
+        if [[ $E5 -lt ${C5D[1]} ]] #C1 OFF
         then
             echo 0 > /sys/devices/system/cpu/cpu5/online
         fi
-
     fi
-    if [[ $E5 -gt 50 ]] #C1 ON
+    if [[ $E5 -gt ${C6U[1]} ]] #C1 ON
     then
         echo 1 > /sys/devices/system/cpu/cpu6/online
-
     else
-
-        if [[ $E6 -lt 20 ]] #C1 OFF
+        if [[ $E6 -lt ${C6D[1]} ]] #C1 OFF
         then
             echo 0 > /sys/devices/system/cpu/cpu6/online
         fi
-
     fi
-    if [[ $E6 -gt 50 ]] #C1 ON
+    if [[ $E6 -gt ${C7U[1]} ]] #C1 ON
     then
         echo 1 > /sys/devices/system/cpu/cpu7/online
-
     else
-
-        if [[ $E7 -lt 20 ]] #C1 OFF
+        if [[ $E7 -lt ${C7D[1]} ]] #C1 OFF
         then
             echo 0 > /sys/devices/system/cpu/cpu7/online
         fi
-
     fi
 	
     #BIG CLUSTER
-
-    
-
-
-
-
-    sleep 0.4
+clear
+echo $E4
+ sleep 1
  done
+
