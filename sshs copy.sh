@@ -4,21 +4,24 @@ MODPATH=/data/adb/modules/stupidsexyhotplugservice
 INFO=/data/adb/modules/.stupidsexyhotplugservice-files
 LIBDIR=/system
 
+C1U=( $(grep C1U $MODDIR/profile.sshs) )
+C1D=( $(grep C1D $MODDIR/profile.sshs) )
+C2U=( $(grep C2U $MODDIR/profile.sshs) )
+C2D=( $(grep C2D $MODDIR/profile.sshs) )
+C3U=( $(grep C3U $MODDIR/profile.sshs) )
+C3D=( $(grep C3D $MODDIR/profile.sshs) )
+C5U=( $(grep C5U $MODDIR/profile.sshs) )
+C5D=( $(grep C5D $MODDIR/profile.sshs) )
+C6U=( $(grep C6U $MODDIR/profile.sshs) )
+C6D=( $(grep C6D $MODDIR/profile.sshs) )
+C7U=( $(grep C7U $MODDIR/profile.sshs) )
+C7D=( $(grep C7D $MODDIR/profile.sshs) )
 
-laf=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies)
-baf=$(cat /sys/devices/system/cpu/cpu4/cpufreq/scaling_available_frequencies)
 
-declare -a Alaf # array of available frequencies    little cores
-declare -a Abaf # array of available frequencies    big    cores
-Alaf=($laf)
-Alafn=$(expr ${#Alaf[@]} - 1)
-Abaf=($baf)
-Abafn=$(expr ${#Abaf[@]} - 1)
-CurrL="0"
-CurrB="0"
-while :
+ 
+ while :
  do
-    chmod -R 777 /sys/devices/system/cpu/
+	chmod -R 777 /sys/devices/system/cpu/
     #RETRIVE CORE ACTIVITY
     CA1=$(cat /sys/devices/system/cpu/cpu1/online)
     CA2=$(cat /sys/devices/system/cpu/cpu2/online)
@@ -34,8 +37,8 @@ while :
     A5=( $(grep cpu5 /proc/stat) ) #B1
     A6=( $(grep cpu6 /proc/stat) ) #B2
     A7=( $(grep cpu7 /proc/stat) ) #B3
-
-
+    #BORING MATH INCOMING
+    #LITTLE
     B0=$(expr "${A0[1]}" + "${A0[2]}" + "${A0[3]}" + "${A0[4]}")  # NO NEED TO CHECK CORE 0 ACTIVATION
     if (("$CA1" > "0"))
     then
@@ -107,48 +110,8 @@ while :
     D7=$(expr "${C7[1]}" + "${C7[2]}" + "${C7[3]}" + "${C7[4]}")
     let E7=$(((100 * ($B7 - $D7 - ${A7[4]} + ${C7[4]})) / ($B7 - $D7)))
     fi
-
-
-
-
-
-
-
-##INSERT SOME LOGIC TO CONTROL THE FREQUENCIES##
-    if [ $E0 -gt "30" ] 
-    then
-        if []
-    fi
-
-################################################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    #RETRIVE CORE ACTIVITY
+    #SMALL CLUSTER
     if [[ $E0 -gt ${C1U[1]} ]] #C1 ON
     then
         echo 1 > /sys/devices/system/cpu/cpu1/online
@@ -207,8 +170,10 @@ while :
             echo 0 > /sys/devices/system/cpu/cpu7/online
         fi
     fi
-    
-    sleep1
-
-
+	
+    #BIG CLUSTER
+clear
+echo $E4
+ sleep 1
  done
+
