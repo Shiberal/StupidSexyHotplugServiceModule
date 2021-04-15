@@ -3,6 +3,7 @@ on:
   push:
     tags:
     - '*'
+    
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,8 +15,7 @@ jobs:
         filename: 'release.zip'
         exclusions: '*.git* /*node_modules/* .editorconfig'
     - name: Upload Release
-    - uses: actions/checkout@v1
-    - uses: ncipollo/release-action@v1
+      uses: ncipollo/release-action@v1
       with:
         artifacts: "release.zip"
         token: ${{ secrets.GITHUB_TOKEN }}
