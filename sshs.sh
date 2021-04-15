@@ -185,6 +185,14 @@ R7=0
     fi
 	
     #WRITE CORES
+    echo $R1
+echo $R2
+echo $R3
+echo $R4
+echo $R5
+echo $R6
+echo $R7
+
     echo $R1 > /sys/devices/system/cpu/cpu1/online
     echo $R2 > /sys/devices/system/cpu/cpu2/online
     echo $R3 > /sys/devices/system/cpu/cpu3/online
