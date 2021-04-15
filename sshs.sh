@@ -119,66 +119,67 @@ R7=0
     let E7=$(((100 * ($B7 - $D7 - ${A7[4]} + ${C7[4]})) / ($B7 - $D7)))
     fi
     #RETRIVE CORE ACTIVITY
-    if [[ $E0 -gt ${C1U[1]} ]] #C1 ON
+
+    if [[ $E0 -gt $C1U ]] #C1 ON
     then
         R1=1
     else
-        if [[ $E1 -lt ${C1D[1]} ]] #C1 OFF
+        if [[ $E1 -lt $C1D ]] #C1 OFF
         then
             R1=0
         fi
     fi
-    if [[ $E1 -gt ${C2U[1]} ]] #C1 ON
+    if [[ $E1 -gt $C2U ]] #C1 ON
     then
         R2=1
     else
-        if [[ $E2 -lt ${C2D[1]} ]] #C1 OFF
+        if [[ $E2 -lt $C2D ]] #C1 OFF
         then
             R2=0
         fi
     fi
-    if [[ $E2 -gt ${C3U[1]} ]] #C1 ON
+    if [[ $E2 -gt $C3U ]] #C1 ON
     then
         R3=1
     else
-        if [[ $E3 -lt ${C3D[1]} ]] #C1 OFF
+        if [[ $E3 -lt $C3D ]] #C1 OFF
         then
             R3=0
         fi
     fi
-	if [[ $E3 -gt ${C4U[1]} ]] #C1 ON
+	if [[ $E3 -gt $C4U ]] #C1 ON
     then
         R4=1
     else
-        if [[ $E4 -lt ${C4D[1]} ]] #C1 OFF
+        if [[ $E4 -lt $C4D ]] #C1 OFF
         then
             R4=0
         fi
     fi
 
-    if [[ $E4 -gt ${C5U[1]} ]] #C1 ON
+    if [[ $E4 -gt $C5U ]] #C1 ON
     then
         R5=1
     else
-        if [[ $E5 -lt ${C5D[1]} ]] #C1 OFF
+        if [[ $E5 -lt $C5D ]] #C1 OFF
         then
             R5=0
         fi
     fi
-    if [[ $E5 -gt ${C6U[1]} ]] #C1 ON
+    if [[ $E5 -gt $C6U ]] #C1 ON
     then
         R6=1
     else
-        if [[ $E6 -lt ${C6D[1]} ]] #C1 OFF
+        if [[ $E6 -lt $C6D ]] #C1 OFF
         then
             R6=0
         fi
     fi
-    if [[ $E6 -gt ${C7U[1]} ]] #C1 ON
+    if [[ $E6 -gt $C7U ]] #C1 ON
     then
         R7=1
     else
-        if [[ $E7 -lt ${C7D[1]} ]] #C1 OFF
+        if [[ $E7 -lt $C7D ]] #C1 OFF
         then
             R7=0
         fi
