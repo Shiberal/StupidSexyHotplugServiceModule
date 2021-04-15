@@ -1,8 +1,8 @@
 name: Create Archive
-on:
+on: 
   push:
-    branches:
-      - master
+    tags:
+    - '*'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,4 +17,5 @@ jobs:
       uses: ncipollo/release-action@v1
       with:
         artifacts: "release.zip"
+        tag: v5.0.0
         token: ${{ secrets.GITHUB_TOKEN }}
