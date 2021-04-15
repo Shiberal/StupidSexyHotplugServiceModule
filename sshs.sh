@@ -62,7 +62,10 @@ R7=0
     B3=$(expr "${A3[1]}" + "${A3[2]}" + "${A3[3]}" + "${A3[4]}")
     fi
     #BIG
+    if (("$CA4" > "0"))
+    then
     B4=$(expr "${A4[1]}" + "${A4[2]}" + "${A4[3]}" + "${A4[4]}")  #NO NEED TO CHECK CORE 4 ACTIVATION
+    fi
     if (("$CA5" > "0"))
     then
     B5=$(expr "${A5[1]}" + "${A5[2]}" + "${A5[3]}" + "${A5[4]}")
