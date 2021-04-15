@@ -10,6 +10,8 @@ C2U=( $(grep C2U $MODDIR/profile.sshs) )
 C2D=( $(grep C2D $MODDIR/profile.sshs) )
 C3U=( $(grep C3U $MODDIR/profile.sshs) )
 C3D=( $(grep C3D $MODDIR/profile.sshs) )
+C4U=( $(grep C4U $MODDIR/profile.sshs) )
+C4D=( $(grep C4D $MODDIR/profile.sshs) )
 C5U=( $(grep C5U $MODDIR/profile.sshs) )
 C5D=( $(grep C5D $MODDIR/profile.sshs) )
 C6U=( $(grep C6U $MODDIR/profile.sshs) )
@@ -17,8 +19,14 @@ C6D=( $(grep C6D $MODDIR/profile.sshs) )
 C7U=( $(grep C7U $MODDIR/profile.sshs) )
 C7D=( $(grep C7D $MODDIR/profile.sshs) )
 
- 
- 
+R1=0
+R2=0
+R3=0
+R4=0
+R5=0
+R6=0
+R7=0
+
  while :
  do
 	chmod -R 777 /sys/devices/system/cpu/
@@ -26,6 +34,7 @@ C7D=( $(grep C7D $MODDIR/profile.sshs) )
     CA1=$(cat /sys/devices/system/cpu/cpu1/online)
     CA2=$(cat /sys/devices/system/cpu/cpu2/online)
     CA3=$(cat /sys/devices/system/cpu/cpu3/online)
+    CA4=$(cat /sys/devices/system/cpu/cpu4/online)
     CA5=$(cat /sys/devices/system/cpu/cpu5/online)
     CA6=$(cat /sys/devices/system/cpu/cpu6/online)
     CA7=$(cat /sys/devices/system/cpu/cpu7/online)
@@ -111,69 +120,97 @@ C7D=( $(grep C7D $MODDIR/profile.sshs) )
     let E7=$(((100 * ($B7 - $D7 - ${A7[4]} + ${C7[4]})) / ($B7 - $D7)))
     fi
     #RETRIVE CORE ACTIVITY
-    #SMALL CLUSTER
+    
+
+
+
+
+
+
+
+
+
+
     if [[ $E0 -gt ${C1U[1]} ]] #C1 ON
     then
-        echo 1 > /sys/devices/system/cpu/cpu1/online
+        R1=1
     else
         if [[ $E1 -lt ${C1D[1]} ]] #C1 OFF
         then
-            echo 0 > /sys/devices/system/cpu/cpu1/online
+            R1=0
         fi
     fi
     if [[ $E1 -gt ${C2U[1]} ]] #C1 ON
     then
-        echo 1 > /sys/devices/system/cpu/cpu2/online
+        R2=1
     else
         if [[ $E2 -lt ${C2D[1]} ]] #C1 OFF
         then
-            echo 0 > /sys/devices/system/cpu/cpu2/online
+            R2=0
         fi
     fi
     if [[ $E2 -gt ${C3U[1]} ]] #C1 ON
     then
-        echo 1 > /sys/devices/system/cpu/cpu3/online
+        R3=1
     else
         if [[ $E3 -lt ${C3D[1]} ]] #C1 OFF
         then
-            echo 0 > /sys/devices/system/cpu/cpu3/online
+            R3=0
         fi
     fi
-    #SMALL CLUSTER
-    #BIG CLUSTER
-	
-	
+	if [[ $E3 -gt ${C4U[1]} ]] #C1 ON
+    then
+        R4=1
+    else
+        if [[ $E4 -lt ${C4D[1]} ]] #C1 OFF
+        then
+            R4=0
+        fi
+    fi
+
     if [[ $E4 -gt ${C5U[1]} ]] #C1 ON
     then
-        echo 1 > /sys/devices/system/cpu/cpu5/online
+        R5=1
     else
         if [[ $E5 -lt ${C5D[1]} ]] #C1 OFF
         then
-            echo 0 > /sys/devices/system/cpu/cpu5/online
+            R5=0
         fi
     fi
     if [[ $E5 -gt ${C6U[1]} ]] #C1 ON
     then
-        echo 1 > /sys/devices/system/cpu/cpu6/online
+        R6=1
     else
         if [[ $E6 -lt ${C6D[1]} ]] #C1 OFF
         then
-            echo 0 > /sys/devices/system/cpu/cpu6/online
+            R6=0
         fi
     fi
     if [[ $E6 -gt ${C7U[1]} ]] #C1 ON
     then
-        echo 1 > /sys/devices/system/cpu/cpu7/online
+        R7=1
     else
         if [[ $E7 -lt ${C7D[1]} ]] #C1 OFF
         then
-            echo 0 > /sys/devices/system/cpu/cpu7/online
+            R7=0
         fi
     fi
-	
-    #BIG CLUSTER
-clear
-echo $E4
+    
+
+
+
+
+
+    #WRITE CORES
+    echo $R1 > /sys/devices/system/cpu/cpu1/online
+    echo $R2 > /sys/devices/system/cpu/cpu2/online
+    echo $R3 > /sys/devices/system/cpu/cpu3/online
+    echo $R4 > /sys/devices/system/cpu/cpu4/online
+    echo $R5 > /sys/devices/system/cpu/cpu5/online
+    echo $R6 > /sys/devices/system/cpu/cpu6/online
+    echo $R7 > /sys/devices/system/cpu/cpu7/online
+    #WRITE CORES
+
  sleep 1
  done
 
