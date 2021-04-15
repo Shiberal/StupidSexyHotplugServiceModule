@@ -34,6 +34,7 @@ R7=0
     CA1=$(cat /sys/devices/system/cpu/cpu1/online)
     CA2=$(cat /sys/devices/system/cpu/cpu2/online)
     CA3=$(cat /sys/devices/system/cpu/cpu3/online)
+    CA4=$(cat /sys/devices/system/cpu/cpu3/online)
     CA5=$(cat /sys/devices/system/cpu/cpu5/online)
     CA6=$(cat /sys/devices/system/cpu/cpu6/online)
     CA7=$(cat /sys/devices/system/cpu/cpu7/online)
@@ -83,6 +84,7 @@ R7=0
     C5=( $(grep cpu5 /proc/stat) ) #B1
     C6=( $(grep cpu6 /proc/stat) ) #B2
     C7=( $(grep cpu7 /proc/stat) ) #B3
+
     D0=$(expr "${C0[1]}" + "${C0[2]}" + "${C0[3]}" + "${C0[4]}")
     let E0=$(((100 * ($B0 - $D0 - ${A0[4]} + ${C0[4]})) / ($B0 - $D0)))  # NO NEED TO CHECK CORE 0 ACTIVATION
     if (("$CA1" > "0"))
@@ -101,8 +103,11 @@ R7=0
         let E3=$(((100 * ($B3 - $D3 - ${A3[4]} + ${C3[4]})) / ($B3 - $D3)))
     fi
     #BIG
+    if (("$CA4" > "0"))
+    then
     D4=$(expr "${C4[1]}" + "${C4[2]}" + "${C4[3]}" + "${C4[4]}")
     let E4=$(((100 * ($B4 - $D4 - ${A4[4]} + ${C4[4]})) / ($B4 - $D4))) #NO NEED TO CHECK CORE 4 ACTIVATION
+    fi
     if (("$CA5" > "0"))
     then
     D5=$(expr "${C5[1]}" + "${C5[2]}" + "${C5[3]}" + "${C5[4]}")
