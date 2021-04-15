@@ -4,20 +4,20 @@ MODPATH=/data/adb/modules/stupidsexyhotplugservice
 INFO=/data/adb/modules/.stupidsexyhotplugservice-files
 LIBDIR=/system
 
-C1U=( $(grep C1U profile.sshs) )
-C1D=( $(grep C1D profile.sshs) )
-C2U=( $(grep C2U profile.sshs) )
-C2D=( $(grep C2D profile.sshs) )
-C3U=( $(grep C3U profile.sshs) )
-C3D=( $(grep C3D profile.sshs) )
-C4U=( $(grep C4U profile.sshs) )
-C4D=( $(grep C4D profile.sshs) )
-C5U=( $(grep C5U profile.sshs) )
-C5D=( $(grep C5D profile.sshs) )
-C6U=( $(grep C6U profile.sshs) )
-C6D=( $(grep C6D profile.sshs) )
-C7U=( $(grep C7U profile.sshs) )
-C7D=( $(grep C7D profile.sshs) )
+C1U=( $(cat $MODPATH/cores/c0/1/U) )
+C1D=( $(cat $MODPATH/cores/c0/1/D) )
+C2U=( $(cat $MODPATH/cores/c0/2/U) )
+C2D=( $(cat $MODPATH/cores/c0/2/D) )
+C3U=( $(cat $MODPATH/cores/c0/3/U) )
+C3D=( $(cat $MODPATH/cores/c0/3/D) )
+C4U=( $(cat $MODPATH/cores/c1/0/U) )
+C4D=( $(cat $MODPATH/cores/c1/0/D) )
+C5U=( $(cat $MODPATH/cores/c1/1/U) )
+C5D=( $(cat $MODPATH/cores/c1/1/D) )
+C6U=( $(cat $MODPATH/cores/c1/2/U) )
+C6D=( $(cat $MODPATH/cores/c1/2/D) )
+C7U=( $(cat $MODPATH/cores/c1/3/U) )
+C7D=( $(cat $MODPATH/cores/c1/3/D) )
 
 R1=0
 R2=0
@@ -26,7 +26,7 @@ R4=0
 R5=0
 R6=0
 R7=0
-
+ 
  while :
  do
 	chmod -R 777 /sys/devices/system/cpu/
@@ -34,7 +34,6 @@ R7=0
     CA1=$(cat /sys/devices/system/cpu/cpu1/online)
     CA2=$(cat /sys/devices/system/cpu/cpu2/online)
     CA3=$(cat /sys/devices/system/cpu/cpu3/online)
-    CA4=$(cat /sys/devices/system/cpu/cpu4/online)
     CA5=$(cat /sys/devices/system/cpu/cpu5/online)
     CA6=$(cat /sys/devices/system/cpu/cpu6/online)
     CA7=$(cat /sys/devices/system/cpu/cpu7/online)
@@ -120,17 +119,6 @@ R7=0
     let E7=$(((100 * ($B7 - $D7 - ${A7[4]} + ${C7[4]})) / ($B7 - $D7)))
     fi
     #RETRIVE CORE ACTIVITY
-    
-
-
-
-
-
-
-
-
-
-
     if [[ $E0 -gt ${C1U[1]} ]] #C1 ON
     then
         R1=1
@@ -195,12 +183,7 @@ R7=0
             R7=0
         fi
     fi
-    
-
-
-
-
-
+	
     #WRITE CORES
     echo $R1 > /sys/devices/system/cpu/cpu1/online
     echo $R2 > /sys/devices/system/cpu/cpu2/online
@@ -210,7 +193,10 @@ R7=0
     echo $R6 > /sys/devices/system/cpu/cpu6/online
     echo $R7 > /sys/devices/system/cpu/cpu7/online
     #WRITE CORES
+    
+clear
 
  sleep 1
  done
+
 
