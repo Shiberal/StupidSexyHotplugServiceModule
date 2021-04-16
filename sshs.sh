@@ -34,7 +34,7 @@ R7=0
     CA1=$(cat /sys/devices/system/cpu/cpu1/online)
     CA2=$(cat /sys/devices/system/cpu/cpu2/online)
     CA3=$(cat /sys/devices/system/cpu/cpu3/online)
-    CA4=$(cat /sys/devices/system/cpu/cpu3/online)
+    CA4=$(cat /sys/devices/system/cpu/cpu4/online)
     CA5=$(cat /sys/devices/system/cpu/cpu5/online)
     CA6=$(cat /sys/devices/system/cpu/cpu6/online)
     CA7=$(cat /sys/devices/system/cpu/cpu7/online)
@@ -48,35 +48,34 @@ R7=0
     A7=( $(grep cpu7 /proc/stat) ) #B3
     #BORING MATH INCOMING
     #LITTLE
-    B0=$(expr "${A0[1]}" + "${A0[2]}" + "${A0[3]}" + "${A0[4]}")  # NO NEED TO CHECK CORE 0 ACTIVATION
+        B0=$(expr "${A0[1]}" + "${A0[2]}" + "${A0[3]}" + "${A0[4]}")  # NO NEED TO CHECK CORE 0 ACTIVATION
     if (("$CA1" > "0"))
     then
-    B1=$(expr "${A1[1]}" + "${A1[2]}" + "${A1[3]}" + "${A1[4]}")
+        B1=$(expr "${A1[1]}" + "${A1[2]}" + "${A1[3]}" + "${A1[4]}")
     fi
     if (("$CA2" > "0"))
     then
-    B2=$(expr "${A2[1]}" + "${A2[2]}" + "${A2[3]}" + "${A2[4]}")
+        B2=$(expr "${A2[1]}" + "${A2[2]}" + "${A2[3]}" + "${A2[4]}")
     fi
     if (("$CA3" > "0"))
     then
-    B3=$(expr "${A3[1]}" + "${A3[2]}" + "${A3[3]}" + "${A3[4]}")
+        B3=$(expr "${A3[1]}" + "${A3[2]}" + "${A3[3]}" + "${A3[4]}")
     fi
-    #BIG
     if (("$CA4" > "0"))
     then
-    B4=$(expr "${A4[1]}" + "${A4[2]}" + "${A4[3]}" + "${A4[4]}")  #NO NEED TO CHECK CORE 4 ACTIVATION
+        B4=$(expr "${A4[1]}" + "${A4[2]}" + "${A4[3]}" + "${A4[4]}")  #NO NEED TO CHECK CORE 4 ACTIVATION
     fi
     if (("$CA5" > "0"))
     then
-    B5=$(expr "${A5[1]}" + "${A5[2]}" + "${A5[3]}" + "${A5[4]}")
+        B5=$(expr "${A5[1]}" + "${A5[2]}" + "${A5[3]}" + "${A5[4]}")
     fi 
     if (("$CA6" > "0"))
     then
-    B6=$(expr "${A6[1]}" + "${A6[2]}" + "${A6[3]}" + "${A6[4]}")
+        B6=$(expr "${A6[1]}" + "${A6[2]}" + "${A6[3]}" + "${A6[4]}")
     fi 
     if (("$CA7" > "0"))
     then
-    B7=$(expr "${A7[1]}" + "${A7[2]}" + "${A7[3]}" + "${A7[4]}")
+        B7=$(expr "${A7[1]}" + "${A7[2]}" + "${A7[3]}" + "${A7[4]}")
     fi
      sleep 0.2
     C0=( $(grep cpu0 /proc/stat) ) #L0
@@ -92,39 +91,45 @@ R7=0
     let E0=$(((100 * ($B0 - $D0 - ${A0[4]} + ${C0[4]})) / ($B0 - $D0)))  # NO NEED TO CHECK CORE 0 ACTIVATION
     if (("$CA1" > "0"))
     then
+        
         D1=$(expr "${C1[1]}" + "${C1[2]}" + "${C1[3]}" + "${C1[4]}")
         let E1=$(((100 * ($B1 - $D1 - ${A1[4]} + ${C1[4]})) / ($B1 - $D1)))
     fi
     if (("$CA2" > "0"))
     then
+        
         D2=$(expr "${C2[1]}" + "${C2[2]}" + "${C2[3]}" + "${C2[4]}")
         let E2=$(((100 * ($B2 - $D2 - ${A2[4]} + ${C2[4]})) / ($B2 - $D2)))
     fi
     if (("$CA3" > "0"))
     then
+        
         D3=$(expr "${C3[1]}" + "${C3[2]}" + "${C3[3]}" + "${C3[4]}")
         let E3=$(((100 * ($B3 - $D3 - ${A3[4]} + ${C3[4]})) / ($B3 - $D3)))
     fi
-    #BIG
     if (("$CA4" > "0"))
     then
-    D4=$(expr "${C4[1]}" + "${C4[2]}" + "${C4[3]}" + "${C4[4]}")
-    let E4=$(((100 * ($B4 - $D4 - ${A4[4]} + ${C4[4]})) / ($B4 - $D4))) #NO NEED TO CHECK CORE 4 ACTIVATION
+        
+        D4=$(expr "${C4[1]}" + "${C4[2]}" + "${C4[3]}" + "${C4[4]}")
+        let E4=$(((100 * ($B4 - $D4 - ${A4[4]} + ${C4[4]})) / ($B4 - $D4))) 
     fi
     if (("$CA5" > "0"))
     then
-    D5=$(expr "${C5[1]}" + "${C5[2]}" + "${C5[3]}" + "${C5[4]}")
-    let E5=$(((100 * ($B5 - $D5 - ${A5[4]} + ${C5[4]})) / ($B5 - $D5)))
+    echo "5"
+        D5=$(expr "${C5[1]}" + "${C5[2]}" + "${C5[3]}" + "${C5[4]}")
+        let E5=$(((100 * ($B5 - $D5 - ${A5[4]} + ${C5[4]})) / ($B5 - $D5)))
     fi 
     if (("$CA6" > "0"))
     then
-    D6=$(expr "${C6[1]}" + "${C6[2]}" + "${C6[3]}" + "${C6[4]}")
-    let E6=$(((100 * ($B6 - $D6 - ${A6[4]} + ${C6[4]})) / ($B6 - $D6)))
+    echo "6"
+        D6=$(expr "${C6[1]}" + "${C6[2]}" + "${C6[3]}" + "${C6[4]}")
+        let E6=$(((100 * ($B6 - $D6 - ${A6[4]} + ${C6[4]})) / ($B6 - $D6)))
     fi 
     if (("$CA7" > "0"))
     then
-    D7=$(expr "${C7[1]}" + "${C7[2]}" + "${C7[3]}" + "${C7[4]}")
-    let E7=$(((100 * ($B7 - $D7 - ${A7[4]} + ${C7[4]})) / ($B7 - $D7)))
+    echo "7"
+        D7=$(expr "${C7[1]}" + "${C7[2]}" + "${C7[3]}" + "${C7[4]}")
+        let E7=$(((100 * ($B7 - $D7 - ${A7[4]} + ${C7[4]})) / ($B7 - $D7)))
     fi
     #RETRIVE CORE ACTIVITY
 
@@ -193,14 +198,17 @@ R7=0
         fi
     fi
 	
-    #WRITE CORES
-    echo $R1
+#WRITE CORES
+if [ false == true]
+then
+echo $R1
 echo $R2
 echo $R3
 echo $R4
 echo $R5
 echo $R6
 echo $R7
+fi 
 
     echo $R1 > /sys/devices/system/cpu/cpu1/online
     echo $R2 > /sys/devices/system/cpu/cpu2/online
